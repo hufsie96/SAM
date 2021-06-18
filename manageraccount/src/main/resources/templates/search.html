@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/mngr.css" th:href="@{/css/mngr.css}"/>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="form-group">
+        도서 검색 페이지
+    </div>
+</th:block>
+</html>
