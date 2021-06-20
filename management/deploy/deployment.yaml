@@ -18,7 +18,8 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: hufsie96/management:latest
+      - image: hufsie96/management
+        imagePullPolicy: Always
         name: management
         env:
         - name: MYSQL_HOST
