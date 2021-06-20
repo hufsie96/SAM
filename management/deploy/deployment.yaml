@@ -6,7 +6,8 @@ metadata:
     app: mgmt-app
 spec:
   ports:
-    - port: 8081
+    - port: 8080
+      targetPort: 8080
   selector:
     app: mgmt-app
     tier: frontend
@@ -32,21 +33,21 @@ spec:
         tier: frontend
     spec:
       containers:
-        - image: kepsam.azurecr.io/management:0.3
+      - image: hufsie96/kep-sam:1.0
+        name: management
+        env:
+        - name: MYSQL_HOST
+          value: mgmt-mysql
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mgmt-mysql-pass
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mgmt-mysql-pass
+              key: password
+        ports:
+        - containerPort: 8080
           name: management
-          env:
-            - name: MYSQL_HOST
-              value: mgmt-mysql
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mgmt-mysql-pass
-                  key: username
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mgmt-mysql-pass
-                  key: password
-          ports:
-            - containerPort: 8081
-              name: management
