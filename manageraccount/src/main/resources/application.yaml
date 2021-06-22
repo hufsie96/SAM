@@ -87,11 +87,11 @@ spring:
       on-profile: "devms"
 kep:
   management:
-    url: http://management.kepcnp.com:8080
-    host: management.kepcnp.com
+    url: http://management:8080
+    host: management
   manageraccount:
-    url: http://manageraccount.kepcnp.com:8080
-    host: manageraccount.kepcnp.com
+    url: http://manageraccount:8080
+    host: manageraccount
 
 
 
