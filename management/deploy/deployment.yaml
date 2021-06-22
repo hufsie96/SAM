@@ -40,7 +40,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: management
+  name: management.kepcnp.com
   labels:
     app: mgmt-app
 spec:
