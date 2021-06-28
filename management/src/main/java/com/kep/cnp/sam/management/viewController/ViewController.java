@@ -1,13 +1,8 @@
-package com.kep.cnp.sam.management.controller;
+package com.kep.cnp.sam.management.viewController;
 
 import com.kep.cnp.sam.management.service.ManagementServiceImple;
 import com.kep.cnp.sam.management.vo.Book;
-import io.netty.handler.codec.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 @Controller
