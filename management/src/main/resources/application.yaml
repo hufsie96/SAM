@@ -52,7 +52,7 @@ spring:
   datasource:
     hikari:
       driver-class-name: "com.mysql.jdbc.Driver"
-      jdbc-url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/manageraccount"
+      jdbc-url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/management"
       username: sa
       password: 1234
     initialization-mode: always
