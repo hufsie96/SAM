@@ -25,7 +25,7 @@ public class ManagementController {
      * 등록되어 있는 모든 도서 정보를 반환한다.
      * @return BookList 모든 도서 정보목록
      */
-    @ApiOperation("getAllBooks")
+    @ApiOperation(value ="", nickname = "getAllBooks")
     @GetMapping(value="/book/all", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> books = managementService.findAll();
@@ -38,7 +38,7 @@ public class ManagementController {
      * 등록되어 있는 모든 카테고리 정보를 조회한다.
      * @return CategoryList 모든 카테고리 목록
      */
-    @ApiOperation("getAllCategorys")
+    @ApiOperation(value ="", nickname = "getAllCategorys")
     @GetMapping(value="/category/all", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<Category>> getAllCategorys(){
         List<Category> categorys = managementService.getCategoryList();
@@ -50,7 +50,7 @@ public class ManagementController {
      * @param book 신규 도서 정보
      * @return 도서 등록 성공 여부
      */
-    @ApiOperation("createBook")
+    @ApiOperation(value ="", nickname = "createBook")
     @PostMapping(value="/book", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean createBook(Book book){
         boolean result = managementService.createBook(book);
@@ -62,7 +62,7 @@ public class ManagementController {
      * @param bookId 폐기 대상 도서 코드
      * @return boolean 도서 폐기 성공 여부
      */
-    @ApiOperation("deleteBook")
+    @ApiOperation(value ="", nickname = "deleteBook")
     @DeleteMapping(value="/book", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean deleteBook(String bookId){
         boolean result = managementService.deleteBook(bookId);
@@ -74,7 +74,7 @@ public class ManagementController {
      * @param book 변경할 모든 도서 정보
      * @return boolean 도서변경 성공 여부
      */
-    @ApiOperation("updateBook")
+    @ApiOperation(value ="", nickname = "updateBook")
     @PutMapping(value="/book", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean updateBook(Book book){
         boolean result = managementService.updateBook(book);
@@ -87,7 +87,7 @@ public class ManagementController {
      * @param status 변겨할 도서 상태(수리중, 폐기 등)
      * @return boolean 도서변경 성공 여부
      */
-    @ApiOperation("updateBookStatus")
+    @ApiOperation(value ="", nickname = "updateBookStatus")
     @PutMapping(value="/book/status/{bookId}/{status}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean updateBookStatus(@PathVariable String bookId, @PathVariable String status){
         boolean result = managementService.updateBookStatus(bookId, status);
@@ -99,7 +99,7 @@ public class ManagementController {
      * @param bookId 검색할 bookId
      * @return 책 상태 정보
      */
-    @ApiOperation("findBookStatus")
+    @ApiOperation(value ="", nickname = "findBookStatus")
     @GetMapping(value="/book/status/{bookId}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Book> findBookStatus(String bookId){
         Book book = managementService.findBookStatus(bookId);
@@ -111,7 +111,7 @@ public class ManagementController {
      * @param name 검색할 도서명
      * @return bookList
      */
-    @ApiOperation("findBookList")
+    @ApiOperation(value ="", nickname = "findBookList")
     @GetMapping(value="/books/{name}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<Book>> findBookList(String name){
         List<Book> books = managementService.findBookList(name);
@@ -123,7 +123,7 @@ public class ManagementController {
      * @param bookId 도서코드
      * @return Book 상세도서 정보
      */
-    @ApiOperation("findBookDetail")
+    @ApiOperation(value ="", nickname = "findBookDetail")
     @GetMapping(value ="/book/{bookId}", produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Book> findBookDetail(String bookId){
         Book book = managementService.findBookDetail(bookId);
@@ -135,7 +135,7 @@ public class ManagementController {
      * @param name 카테고리명
      * @return bookList 검색 카테고리로 분류되는 도서목록
      */
-    @ApiOperation("findBooksByCategory")
+    @ApiOperation(value ="", nickname = "findBooksByCategory")
     @GetMapping(value ="/book/category/{name}", produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Book>> findBooksByCategory(String name){
         List<Book> books = managementService.findBookListByCategory(name);

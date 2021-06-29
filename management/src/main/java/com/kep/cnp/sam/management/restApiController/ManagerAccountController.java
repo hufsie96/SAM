@@ -25,7 +25,7 @@ public class ManagerAccountController {
      * @param manager 관리자 가입정보
      * @return boolean 정상 등록 결과
      */
-    @ApiOperation("createManager")
+    @ApiOperation(value ="", nickname = "createManager")
     @PostMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean createManager(Manager manager){
         System.out.println("manager:"+ manager.toString());
@@ -39,7 +39,7 @@ public class ManagerAccountController {
      * @param librarianId 도서 관리자 Id
      * @return Manager 도서 관리자에 대한 정보
      */
-    @ApiOperation("getDetailManager")
+    @ApiOperation(value ="", nickname = "getDetailManager")
     @GetMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Manager> getDetailManager(String librarianId){
         Manager manager = accountService.getDetailManager(librarianId);
@@ -54,7 +54,7 @@ public class ManagerAccountController {
      * @param manager 인증토큰을 발행할 대상 정보
      * @return JWT 토큰을 발행한다.
      */
-    @ApiOperation("generateToken")
+    @ApiOperation(value ="", nickname = "generateToken")
     @PostMapping(value = "/generateToken", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String generateToken(Manager manager){
         return accountService.generateToken(manager);
@@ -66,7 +66,7 @@ public class ManagerAccountController {
      * @param token 유효성확인을 위한 JWT 토큰
      * @return 상태값 OK를 회신한다.
      */
-    @ApiOperation("validationToken")
+    @ApiOperation(value ="", nickname = "validationToken")
     @GetMapping(value="/vaidationToken", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> validationToken(@RequestHeader("jwt_token") String token){
 
@@ -103,7 +103,7 @@ public class ManagerAccountController {
      * @param password 관리자 로그인 password
      * @return jwt토큰을 발행한다.
      */
-    @ApiOperation("checkAuthentication")
+    @ApiOperation(value ="", nickname = "checkAuthentication")
     @GetMapping(value = "/checkAuthentication/{librarianId}/{password}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> checkAuthentication(@PathVariable String librarianId, @PathVariable String password) {
         Manager manager = new Manager(librarianId, password);
