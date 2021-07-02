@@ -47,7 +47,6 @@ public class Manager {
     //@NotEmpty(message = "id cannot be empty.")
     private String librarianId;
 
-
     private String name;
 
     private String role;
@@ -58,7 +57,6 @@ public class Manager {
     private Date birthDay;
 
     private String address;
-
 
     private String password;
 

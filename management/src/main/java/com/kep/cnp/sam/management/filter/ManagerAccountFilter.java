@@ -21,7 +21,7 @@ public class ManagerAccountFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         String jwt_token = httpRequest.getHeader("jwt_token");
 
-        System.out.println("cookie is "+ (null != httpRequest.getCookies() ? Arrays.stream(httpRequest.getCookies()).count() : "null"));
+        //System.out.println("cookie is "+ (null != httpRequest.getCookies() ? Arrays.stream(httpRequest.getCookies()).count() : "null"));
         if(null == jwt_token && null != httpRequest.getCookies() && Arrays.stream(httpRequest.getCookies()).anyMatch(cookie -> cookie.getName().equals("jwt_token")) ) {
             Optional<Cookie> cookie = Arrays.stream(httpRequest.getCookies()).filter(c -> c.getName().equals("jwt_token")).findFirst();
             jwt_token = cookie.get().getValue();
@@ -37,6 +37,5 @@ public class ManagerAccountFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
 
     }
-
 
 }

@@ -8,22 +8,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @Service
 public class ApiService<T> {
 
+    @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    public ApiService(RestTemplate restTemplate) {
+    /*@Autowired
+    public ApiService() {
         this.restTemplate = restTemplate;
     }
-
+*/
     public ResponseEntity<T> get(String url, HttpHeaders httpHeaders) {
         return callApiEndpoint(url, HttpMethod.GET, httpHeaders, null, (Class<T>)Object.class);
     }
 
     public ResponseEntity<T> get(String url, HttpHeaders httpHeaders, Class<T> clazz) {
         return callApiEndpoint(url, HttpMethod.GET, httpHeaders, null, clazz);
+    }
+
+    public ResponseEntity<T> get(String url, HttpHeaders httpHeaders, Class<T> clazz, Map<String, String> params) {
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(null, httpHeaders), clazz, params);
     }
 
     public ResponseEntity<T> post(String url, HttpHeaders httpHeaders, Object body) {

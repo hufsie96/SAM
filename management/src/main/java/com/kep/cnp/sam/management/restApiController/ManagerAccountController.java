@@ -4,6 +4,8 @@ import com.kep.cnp.sam.management.service.ManagerAccountService;
 import com.kep.cnp.sam.management.vo.Manager;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,9 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/manageraccount")
 public class ManagerAccountController {
 
+    @Value("${kep.manageraccount.url}")
+    private String ACCOUNT_URL;// = "http://manageraccount:8082";
+
     @Autowired
     ManagerAccountService accountService;
 
@@ -27,9 +32,8 @@ public class ManagerAccountController {
      */
     @ApiOperation(value ="", nickname = "createManager")
     @PostMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public boolean createManager(Manager manager){
-        System.out.println("manager:"+ manager.toString());
-        accountService.createManager(manager);
+    public boolean createManager(@RequestHeader("jwt_token") String token, Manager manager){
+        accountService.createManager(token, manager);
         return true;
     }
 
@@ -41,8 +45,8 @@ public class ManagerAccountController {
      */
     @ApiOperation(value ="", nickname = "getDetailManager")
     @GetMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Manager> getDetailManager(String librarianId){
-        Manager manager = accountService.getDetailManager(librarianId);
+    public ResponseEntity<Manager> getDetailManager(@RequestHeader("jwt_token") String token, String librarianId){
+        Manager manager = accountService.getDetailManager(token, librarianId);
         if (manager == null)
             return new ResponseEntity<Manager>(manager, HttpStatus.NOT_FOUND);
         return new ResponseEntity<Manager>(manager, HttpStatus.OK);

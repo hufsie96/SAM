@@ -4,9 +4,9 @@ import com.kep.cnp.sam.management.vo.Manager;
 
 public interface ManagerAccountService {
 
-    public boolean createManager(Manager manager);
+    public boolean createManager(String jwt_token, Manager manager);
 
-    public Manager getDetailManager(String librarianId);
+    public Manager getDetailManager(String jwt_token, String librarianId);
 
     public String generateToken(Manager manager);
 

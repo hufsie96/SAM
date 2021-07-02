@@ -1,14 +1,40 @@
 spring:
   profiles:
     group:
-      "local": "localdb,common,localms"
-
+      "local": "localms,localdb,common"
 ---
 spring:
   profiles:
     group:
       "dev": "devdb,common,devms"
-
+---
+spring:
+  config:
+    activate:
+      on-profile: "localms"
+kep:
+  management:
+    url: http://${MANAGEMENT_HOST}:8081
+    api-url: http://${MANAGEMENT_HOST}:8081/api/management
+    host: ${MANAGEMENT_HOST}
+  manageraccount:
+    url: http://${MANAGERACCOUNT_HOST}:8082
+    api-url: http://${MANAGERACCOUNT_HOST}:8082/api/manageraccount
+    host: ${MANAGERACCOUNT_HOST}
+---
+spring:
+  config:
+    activate:
+      on-profile: "devms"
+kep:
+  management:
+    url: http://management:8080
+    api-url: http://management:8080/api/management
+    host: management
+  manageraccount:
+    url: http://manageraccount:8080
+    api-url: http://manageraccount:8080/api/manageraccount
+    host: manageraccount
 ---
 spring:
   config:
@@ -80,31 +106,6 @@ spring:
     mode: "HTML5"
     cache: false
 
----
-spring:
-  config:
-    activate:
-      on-profile: "localms"
-kep:
-  management:
-    url: http://${MANAGEMENT_HOST}:8081
-    host: ${MANAGEMENT_HOST}
-  manageraccount:
-    url: http://${MANAGERACCOUNT_HOST}:8082
-    host: ${MANAGERACCOUNT_HOST}
-
----
-spring:
-  config:
-    activate:
-      on-profile: "devms"
-kep:
-  management:
-    url: http://management:8080
-    host: management.kepcnp.com
-  manageraccount:
-    url: http://manageraccount:8080
-    host: manageraccount.kepcnp.com
 
 
 
