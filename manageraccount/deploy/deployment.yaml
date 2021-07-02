@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: manageraccount
   labels:
-    app: mgmt-app
+    app: manageraccount-app
 spec:
   selector:
     matchLabels:
-      app: mgmt-app
+      app: manageraccount-app
       tier: frontend
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mgmt-app
+        app: manageraccount-app
         tier: frontend
     spec:
       containers:
@@ -43,12 +43,12 @@ kind: Service
 metadata:
   name: manageraccount
   labels:
-    app: mgmt-app
+    app: manageraccount-app
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: mgmt-app
+    app: manageraccount-app
     tier: frontend
   type: LoadBalancer

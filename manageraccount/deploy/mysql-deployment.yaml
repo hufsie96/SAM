@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mgmt-mysql-pv-volume
+  name: mgmtaccount-mysql-pv-volume
   labels:
     type: local
 spec:
@@ -14,9 +14,23 @@ spec:
     path: "/mnt/data"
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  name: mgmtaccount-mysql
+  labels:
+    app: mgmtaccount-app
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mgmtaccount-app
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mgmt-mysql-pv-claim
+  name: mgmtaccount-mysql-pv-claim
 spec:
   storageClassName: manual
   accessModes:
@@ -24,69 +38,55 @@ spec:
   resources:
     requests:
       storage: 20Gi
----      
-apiVersion: v1
-kind: Service
-metadata:
-  name: mgmt-mysql
-  labels:
-    app: mgmt-app
-spec:
-  ports:
-    - port: 3306
-  selector:
-    app: mgmt-app
-    tier: mysql
-  clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mgmt-mysql
+  name: mgmtaccount-mysql
   labels:
-    app: mgmt-app
+    app: mgmtaccount-app
 spec:
   selector:
     matchLabels:
-      app: mgmt-app
+      app: mgmtaccount-app
       tier: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mgmt-app
+        app: mgmtaccount-app
         tier: mysql
     spec:
       containers:
         - image: mysql:5.6
-          name: mgmt-mysql
+          name: mgmtaccount-mysql
           args: ["--character-set-server=utf8", "--collation-server=utf8_unicode_ci"]
           env:
             - name: MYSQL_DATABASE
-              value: management
+              value: manageraccount
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mgmt-mysql-pass
+                  name: mgmtaccount-mysql-pass
                   key: rootpassword
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mgmt-mysql-pass
+                  name: mgmtaccount-mysql-pass
                   key: username
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mgmt-mysql-pass
+                  name: mgmtaccount-mysql-pass
                   key: password
           ports:
             - containerPort: 3306
               name: mysql
           volumeMounts:
-            - name: mgmt-mysql-persistent-storage
+            - name: mgmtaccount-mysql-persistent-storage
               mountPath: /var/lib/mysql
       volumes:
-        - name: mgmt-mysql-persistent-storage
+        - name: mgmtaccount-mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: mgmt-mysql-pv-claim
+            claimName: mgmtaccount-mysql-pv-claim
