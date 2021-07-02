@@ -13,9 +13,9 @@ public class SwaggerConfig {
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("business-api")
+                //.groupName("business-api")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.kep.cnp.sam.manageraccount.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.kep.cnp.sam.manageraccount.apicontroller"))
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")

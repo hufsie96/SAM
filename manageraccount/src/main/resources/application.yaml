@@ -51,9 +51,24 @@ spring:
   config:
     activate:
       on-profile: "devdb"
+  datasource:
+    hikari:
+      driver-class-name: "com.mysql.jdbc.Driver"
+      jdbc-url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/manageraccount"
+      username: sa
+      password: 1234
+    initialization-mode: always
 
-server:
-  port: 8080
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
 
 ---
 spring:

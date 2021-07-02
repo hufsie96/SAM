@@ -1,4 +1,4 @@
-package com.kep.cnp.sam.manageraccount.controller;
+package com.kep.cnp.sam.manageraccount.apicontroller;
 
 import com.kep.cnp.sam.manageraccount.service.AccountService;
 import com.kep.cnp.sam.manageraccount.vo.AccountDTO;
@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
  */
 
 @RestController
-@RequestMapping("/manageraccount")
+@RequestMapping("/api/manageraccount")
 public class RestApiController {
 
     @Autowired

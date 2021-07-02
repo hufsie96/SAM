@@ -1,10 +1,8 @@
-package com.kep.cnp.sam.manageraccount.controller;
+package com.kep.cnp.sam.manageraccount.veiwcontroller;
 
 import com.kep.cnp.sam.manageraccount.service.AccountServiceImple;
 import com.kep.cnp.sam.manageraccount.vo.Manager;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 
 import javax.servlet.http.HttpSession;
 
