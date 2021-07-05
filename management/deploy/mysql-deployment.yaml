@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mgmt-mysql-pv-claim
+  name: mgmt-mysql-pvkj-claim
 spec:
   storageClassName: manual
   accessModes:

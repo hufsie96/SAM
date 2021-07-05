@@ -1,9 +1,7 @@
 package com.kep.cnp.sam.manageraccount.apicontroller;
 
-import com.kep.cnp.sam.manageraccount.service.AccountService;
 import com.kep.cnp.sam.manageraccount.vo.AccountDTO;
 import com.kep.cnp.sam.manageraccount.vo.Manager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,19 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
-/**
- * 관리자 계정 관리 및 인증처리를 위한 RestAPI controller 클래스
- *
- * @author jackie.choi
- * @version 1.0
- */
+import static java.lang.Thread.sleep;
 
 @RestController
-@RequestMapping("/api/v1.0/manageraccount")
-public class RestApiController {
+@RequestMapping("/api/v2.0/manageraccount")
+public class RestApiV2Controller extends RestApiController{
 
-    @Autowired
-    AccountService accountService;
+    /**
+     * RestAPI 지연을 유도 시나리오를 위한 시간 설정으로 해당시간 만큼 지연 후 응답을 한다.
+     * 단위를 밀리세컨드
+     */
+    final static int SLEEP_TIME = 10000;
 
     /**
      * 관리자에 대한 가입 정보를 받아 계정을 등록한다.
@@ -32,9 +28,15 @@ public class RestApiController {
      * @param manager 관리자 가입정보
      * @return boolean 정상 등록 결과
      */
+    @Override
     @PostMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE })
     public boolean createManager(Manager manager){
-        System.out.println("manager:"+ manager.toString());
+        //지연 시간 로직
+        try {
+            sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         accountService.createManager(manager);
         return true;
     }
@@ -45,8 +47,15 @@ public class RestApiController {
      * @param librarianId 도서 관리자 Id
      * @return Manager 도서 관리자에 대한 정보
      */
+    @Override
     @GetMapping(value="/user", produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Manager> getDetailManager(String librarianId){
+        //지연 시간 로직
+        try {
+            sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Manager manager = accountService.getDetailManager(librarianId);
         if (manager == null)
             return new ResponseEntity<Manager>(manager, HttpStatus.NOT_FOUND);
@@ -59,8 +68,15 @@ public class RestApiController {
      * @param manager 인증토큰을 발행할 대상 정보
      * @return JWT 토큰을 발행한다.
      */
+    @Override
     @PostMapping(value = "/generateToken", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String generateToken(Manager manager){
+        //지연 시간 로직
+        try {
+            sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return accountService.generateToken(manager);
     }
 
@@ -70,12 +86,21 @@ public class RestApiController {
      * @param token 유효성확인을 위한 JWT 토큰
      * @return 상태값 OK를 회신한다.
      */
+    @Override
     @GetMapping(value="/vaidationToken", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> validationToken(@RequestHeader("jwt_token") String token){
         AccountDTO accDto = null;
         HttpHeaders resHeader = new HttpHeaders();
         String message = null;
         HttpStatus httpStatus = null;
+
+        //지연 시간 로직
+        try {
+            sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         try{
             if(accountService.validationToken(token)) {
                 resHeader.set("token", token);
@@ -89,9 +114,9 @@ public class RestApiController {
         }catch (NoSuchElementException noSuchElementException){
 
             return ResponseEntity
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .headers(resHeader)
-                        .body("{ 'message' : '"+message+"'");
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .headers(resHeader)
+                    .body("{ 'message' : '"+message+"'");
         }
 
         return ResponseEntity
@@ -101,17 +126,26 @@ public class RestApiController {
     }
 
     /**
-     * 관리자 로그인을 위해 입력한 ID/PWD를 확인한다.
+     * 관리자 로그인을 위해 입력한 ID/PWD를 확인후 10초후에 토큰을 발행한다.
      * @param librarianId 관리자 아이디
      * @param password 관리자 로그인 password
      * @return jwt토큰을 발행한다.
      */
+    @Override
     @GetMapping(value = "/checkAuthentication/{librarianId}/{password}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> checkAuthentication(@PathVariable String librarianId, @PathVariable String password) {
         Manager manager = new Manager(librarianId, password);
         String token = accountService.authentication(manager);
+
+        //지연 시간 로직
+        try {
+            sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         if("".equals(token))
-           return new ResponseEntity<String>("{ 'message': 'ID 또는 password가 잘못되었습니다.'}", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>("{ 'message': 'ID 또는 password가 잘못되었습니다.'}", HttpStatus.FORBIDDEN);
 
         return ResponseEntity
                 .ok()

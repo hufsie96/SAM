@@ -1,5 +1,6 @@
 package com.kep.cnp.sam.management.configuration;
 
+import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -8,33 +9,63 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
 @Configuration
+@EnableSwagger2
 public class SwaggerConfig {
+    /**
+     * Rest API Version
+     */
+    private String version;
+    /**
+     * RestAPI Swagger website's title
+     */
+    private String title = "SAM Management REST API ";
 
     @Bean
-    public Docket api(){
+    public Docket apiV1(){
+        version = "V1.0";
+        title = title + version;
+
         return new Docket(DocumentationType.SWAGGER_2)
-                //.groupName("business-api")
+                //.groupName("")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.kep.cnp.sam.management.restApiController"))
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.ant("/api/v1.0/**"))
                 .build()
                 .pathMapping("/")
-                .useDefaultResponseMessages(false);
+                .useDefaultResponseMessages(false)
+                .apiInfo(apiInfo(title, version));
     }
 
-    private ApiInfo apiInfo(){
+//    @Bean
+//    public Docket apiV2(){
+//        version = "V2.0";
+//        title = title + version;
+//
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .groupName(version)
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.kep.cnp.sam.management.restApiV2Controller"))
+//                .paths(PathSelectors.ant("/api/v2.0/**"))
+//                .build()
+//                .pathMapping("/api/v2.0/")
+//                .useDefaultResponseMessages(false)
+//                .apiInfo(apiInfo(title, version));
+//    }
+
+    private ApiInfo apiInfo(String title, String version){
         return new ApiInfo(
-                "SAM Management REST API",
-                "libraray management system API for create, update, delete, search books",
-                "version v.01",
+                title,
+                "library management system API for create, update, delete, search books",
+                version,
                 "service",
                 new Contact("jackie.choi", "management.sam.kep.com", "admin@sam.kep.com"),
                 "license of API"
-                ,"http://license.sam.kep.com",
+                ,"license.sam.kep.com",
                 Collections.emptyList()
 
         );

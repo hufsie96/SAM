@@ -3,6 +3,7 @@ package com.kep.cnp.sam.management.restApiController;
 import com.kep.cnp.sam.management.service.ManagementService;
 import com.kep.cnp.sam.management.vo.Book;
 import com.kep.cnp.sam.management.vo.Category;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/management")
+@Api(value="BookManagementController V1")
+@RequestMapping("/api/v1.0/management")
 public class ManagementController {
 
     @Autowired
@@ -25,7 +27,7 @@ public class ManagementController {
      * 등록되어 있는 모든 도서 정보를 반환한다.
      * @return BookList 모든 도서 정보목록
      */
-    @ApiOperation(value ="", nickname = "getAllBooks")
+    @ApiOperation(value ="getAllBooks", nickname = "getAllBooks", notes = "모든 도서정보목록 조회")
     @GetMapping(value="/book/all", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> books = managementService.findAll();

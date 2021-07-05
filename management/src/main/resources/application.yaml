@@ -106,6 +106,11 @@ spring:
     mode: "HTML5"
     cache: false
 
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: "/swagger/docs/v2"
 
 
 
