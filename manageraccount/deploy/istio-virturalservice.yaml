@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mgmt-vsvc
+spec:
+  hosts:
+    - 'mamangement'
+  gateways:
+    - management-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/management
+      route:
+        - destination:
+            host: mgmt-app
+            port:
+              number: 8080

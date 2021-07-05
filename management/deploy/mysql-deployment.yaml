@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mgmt-mysql-pv-volume
+  namespace: library
   labels:
     type: local
 spec:
@@ -16,7 +17,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mgmt-mysql-pvkj-claim
+  name: mgmt-mysql-pv-claim
+  namespace: library
 spec:
   storageClassName: manual
   accessModes:
@@ -29,6 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mgmt-mysql
+  namespace: library
   labels:
     app: mgmt-app
 spec:
@@ -43,6 +46,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mgmt-mysql
+  namespace: library
   labels:
     app: mgmt-app
 spec:
