@@ -4,9 +4,9 @@ metadata:
   name: mgmt-vsvc
 spec:
   hosts:
-    - 'mamangement'
+    - '*'
   gateways:
-    - management-gateway
+    - library-gateway
   http:
     - match:
         - uri:

@@ -1,27 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: management
+  name: manageraccount
+  version: v1.0
   namespace: library
   labels:
-    app: mgmt-app
+    app: manageraccount-app
 spec:
   selector:
     matchLabels:
-      app: mgmt-app
+      app: manageraccount-app
       tier: frontend
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mgmt-app
+        app: manageraccount-app
         tier: frontend
+        version: v1
     spec:
       containers:
-      - image: hufsie96/management
+      - image: hufsie96/manageraccount
         imagePullPolicy: Always
-        name: management
+        name: manageraccount
         env:
         - name: MYSQL_HOST
           value: mgmt-mysql
@@ -37,20 +39,22 @@ spec:
               key: password
         ports:
         - containerPort: 8080
-          name: management
+          name: manageraccount
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: management
+  name: manageraccount
+  version: v1.0
   namespace: library
   labels:
-    app: mgmt-app
+    app: manageraccount-app
+    version: v1
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: mgmt-app
+    app: manageraccount-app
     tier: frontend
   type: ClusterIP

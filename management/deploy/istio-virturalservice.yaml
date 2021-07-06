@@ -27,9 +27,9 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /api/management
+            prefix: /api/v1/management
         - uri:
-            prefix: /api/manageraccount         
+            prefix: /api/v1/manageraccount
       route:
         - destination:
             host: management
